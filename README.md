@@ -1,36 +1,40 @@
-Citizen_Complain_Portal is a web-based application that allows citizens to report and track complaints about public infrastructure and services in their local area. The platform empowers citizens to raise issues such as road damage, garbage disposal, water supply problems, and more, contributing to better city management and sustainability.
-Features
-Users can submit complaints specifying the type of issue, subtype, description, and location.
-Complaints are categorized by district and pincode.
-Integration of latitude and longitude for precise location mapping of the reported issues.
-A dashboard displays complaint trends with data visualization tools like bar graphs and heatmaps.
-Admins can track and analyze complaints based on districts and types to identify priority areas for resolution.
+Citizen_Complain_Portal
+Citizen_Complain_Portal is a web application designed to help citizens report and track issues related to public services and infrastructure. Users can log complaints about issues like road damage, garbage disposal, water supply problems, and more. The application promotes better city management by providing a platform for citizens to raise concerns that require government attention.
+
+Key Features
+Users can submit complaints by specifying the type of issue, subtype, a detailed description, and the location.
+Complaints are categorized based on district and pincode for easier tracking.
+The application uses latitude and longitude to mark the exact location of reported issues.
+A dashboard displays complaint data using bar graphs and heatmaps for easy visualization and analysis.
+Admins can monitor complaints and address areas with the most reported problems.
 Technologies Used
 Frontend: HTML, CSS, JavaScript
-Backend: PHP, Python (Django), SQL
+Backend: Python (Django) and PHP
 Database: MySQL
-Visualization: Data science techniques for creating graphs and heatmaps
-Mapping: Google Maps API (for geolocation features)
+Data Visualization: Python libraries like Pandas and Matplotlib
+Location Mapping: Google Maps API for geolocation features
 Prerequisites
 Python 3.x
 Django 3.x
 MySQL
 Google Maps API Key
-Data Science Libraries (Pandas, Matplotlib)
-Database Tables
-1. reported_issues
-Column Name	Data Type	Description
-issue_id	INT (Primary Key, Auto Increment)	Unique identifier for each issue.
-issue_type	VARCHAR(100)	Type of issue (e.g., Infrastructure, Sanitation)
-issue_subtype	VARCHAR(100)	Subtype of issue (e.g., Road, Garbage)
-issue_description	TEXT	Description of the issue reported.
-district	VARCHAR(100)	District where the issue is reported.
-pincode	VARCHAR(10)	Pincode for location identification.
-latitude	DECIMAL(10,8)	Latitude of the issue location.
-longitude	DECIMAL(11,8)	Longitude of the issue location.
-submission_date	TIMESTAMP	Date and time when the issue was reported.
+Required Python libraries (Pandas, Matplotlib)
+Database Structure
+The application uses a MySQL database with the following table:
+
+reported_issues
+issue_id: Auto-incrementing ID for each issue.
+issue_type: The type of issue, such as Infrastructure, Sanitation, Water Supply, or Power.
+issue_subtype: Further classification of the issue, like Road, Garbage, Leakage, or Street Light.
+issue_description: A text field to describe the issue in detail.
+district: The district where the issue is reported, such as Shivajinagar or Kothrud.
+pincode: The pincode of the area where the issue is located.
+latitude: The latitude of the issue's location.
+longitude: The longitude of the issue's location.
+submission_date: The date and time when the issue was submitted.
 How to Run the Project
-Clone the repository.
-Install the required dependencies using pip install -r requirements.txt.
-Set up the database using the provided SQL scripts.
-Run the Django development server using python manage.py runserver.
+Clone this repository to your local machine.
+Install the required dependencies using the command: pip install -r requirements.txt.
+Set up the MySQL database using the provided SQL script.
+Obtain and configure your Google Maps API key.
+Run the Django development server with python manage.py runserver.
