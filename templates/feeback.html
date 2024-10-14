@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report a Problem - Smart City Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
+            padding-top: 80px;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #002366;
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            background-color: #004aad;
+        }
+
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            padding: 50px 0 30px;
+            background-color: #004aad;
+            color: #fff;
+        }
+
+        .page-title h1 {
+            font-size: 3rem;
+        }
+
+        /* Problem Categories */
+        .problem-categories {
+            margin-top: 50px;
+        }
+
+        .problem-categories h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #004aad;
+            margin-bottom: 30px;
+        }
+
+        .category-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .category-box {
+            background-color: #f9f9f9;
+            padding: 20px;
+            width: 30%;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .category-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .category-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .category-box select,
+        .category-box textarea,
+        .category-box input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .category-box button {
+            background-color: #004aad;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .category-box button:hover {
+            background-color: #003080;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #002366;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        footer ul li {
+            margin: 0 15px;
+        }
+
+        footer ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .category-grid {
+                flex-direction: column;
+            }
+
+            .category-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+    <li><a href="{% url 'index' %}">Home</a></li>
+
+    <!-- Page Title -->
+    <section class="page-title">
+        <div class="container">
+            <h1>Report a Problem</h1>
+            <p>Select the category of the problem you want to report and provide necessary details.</p>
+        </div>
+    </section>
+
+    <!-- Problem Categories -->
+    <section class="problem-categories">
+        <div class="container">
+            <h2>Categories of Problems</h2>
+            <div class="category-grid">
+
+                <div class="category-box">
+                    <h3>Infrastructure Issues</h3>
+                    <form method="POST" > 
+                        {% csrf_token %}
+                        <select name="issue_type" id="infrastructure-issues" required>
+                            <option value="" disabled selected>Select the issue</option>
+                            <option value="Potholes">Potholes</option>
+                            <option value="Broken Streetlights">Broken Streetlights</option>
+                            <option value="Damaged Roads">Damaged Roads</option>
+                            <option value="Blocked Drains">Blocked Drains</option>
+                        </select>
+                        <textarea name="issue_description" id="infrastructure-details" rows="4" placeholder="Additional details (optional)"></textarea>
+                        <input type="text" name="district" placeholder="District" required>
+                        <input type="text" name="pincode" placeholder="Pincode" required>
+                        <button type="submit">Submit Issue</button>
+                    </form>
+                </div>
+              <!-- Category 2: Sanitation Issues -->
+<div class="category-box">
+    <h3>Sanitation Issues</h3>
+    <form method="POST"> 
+        {% csrf_token %}
+        <select name="issue_type" id="sanitation-issues" required>
+            <option value="" disabled selected>Select the issue</option>
+            <option value="Waste Collection">Waste Collection</option>
+            <option value="Garbage Dumping">Garbage Dumping</option>
+            <option value="Sewage Overflow">Sewage Overflow</option>
+            <option value="Unclean Public Areas">Unclean Public Areas</option>
+        </select>
+        <textarea name="issue_description" id="sanitation-details" rows="4" placeholder="Additional details (optional)"></textarea>
+        <input type="text" name="district" placeholder="District" required>
+        <input type="text" name="pincode" placeholder="Pincode" required>
+        <button type="submit">Submit Issue</button>
+    </form>
+</div>
+
+              <!-- Category 3: Public Safety -->
+<div class="category-box">
+    <h3>Public Safety Issues</h3>
+    <form method="POST" > 
+        {% csrf_token %}
+        <select name="issue_type" id="public-safety-issues" required>
+            <option value="" disabled selected>Select the issue</option>
+            <option value="Traffic Violations">Traffic Violations</option>
+            <option value="Vandalism">Vandalism</option>
+            <option value="Public Harassment">Public Harassment</option>
+            <option value="Street Crime">Street Crime</option>
+        </select>
+        <textarea name="issue_description" id="public-safety-details" rows="4" placeholder="Additional details (optional)"></textarea>
+        <input type="text" name="district" placeholder="District" required>
+        <input type="text" name="pincode" placeholder="Pincode" required>
+        <button type="submit">Submit Issue</button>
+    </form>
+</div>
+
+
+               <!-- Category 4: Environmental Issues -->
+<div class="category-box">
+    <h3>Environmental Issues</h3>
+    <form method="POST" > 
+        {% csrf_token %}
+        <select name="issue_type" id="environment-issues" required>
+            <option value="" disabled selected>Select the issue</option>
+            <option value="Air Pollution">Air Pollution</option>
+            <option value="Water Pollution">Water Pollution</option>
+            <option value="Tree Cutting">Tree Cutting</option>
+            <option value="Illegal Dumping">Illegal Dumping</option>
+        </select>
+        <textarea name="issue_description" id="environment-details" rows="4" placeholder="Additional details (optional)"></textarea>
+        <input type="text" name="district" placeholder="District" required>
+        <input type="text" name="pincode" placeholder="Pincode" required>
+        <button type="submit">Submit Issue</button>
+    </form>
+</div>
+ 
+<div class="category-box">
+    <h3>Electricity</h3>
+    <form method="POST" > 
+        {% csrf_token %}
+        <select name="issue_type" id="electricity-issues" required>
+            <option value="" disabled selected>Select the issue</option>
+            <option value="High Voltage">High Voltage</option>
+            <option value="Low voltage">Low voltage</option>
+            <option value="Fluctuation">Fluctuation</option>
+            <option value="Power Cut">Power Cut</option>
+            <option value="Street Light Issues">Street Light Issues</option>
+        </select>
+        <textarea name="issue_description" id="electricity-details" rows="4" placeholder="Additional details (optional)"></textarea>
+        <input type="text" name="district" placeholder="District" required>
+        <input type="text" name="pincode" placeholder="Pincode" required>
+        <button type="submit">Submit Issue</button>
+    </form>
+</div>
+ 
+              <!-- Category 5: Other Issues -->
+<div class="category-box">
+    <h3>Other Issues</h3>
+    <form method="POST" > 
+        {% csrf_token %}
+        <input type="text" id="other-issue" name="issue_type" placeholder="Describe the issue" required>
+        <textarea name="issue_description" id="other-details" rows="4" placeholder="Additional details (optional)"></textarea>
+        <input type="text" name="district" placeholder="District" required>
+        <input type="text" name="pincode" placeholder="Pincode" required>
+        <button type="submit">Submit Issue</button>
+    </form>
+</div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+          
+            <p>&copy; 2024 Smart City Management.Team - KATHA.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

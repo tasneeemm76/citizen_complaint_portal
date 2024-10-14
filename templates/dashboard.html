@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    
+    <!-- Load Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+            padding-top: 60px; /* Prevent content from being hidden behind the fixed header */
+        }
+
+        /* Navigation bar */
+        header {
+            background-color: #002366; /* Navy Blue */
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            background-color: #004aad;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Chart styles */
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        /* Adjust bar chart size */
+        .bar-chart-container {
+            width: 80%; /* Full width for bar chart */
+        }
+
+        .pie-chart-container {
+            width: 45%;  /* Set the width as needed */
+            height: 300px; /* Fixed height for the pie chart */
+            margin: 20px auto; /* Center the chart */
+        }
+
+        /* Button styling */
+        button {
+            background-color: #004aad; /* Green color */
+            color: white;
+            padding: 50px 50px; /* Increased padding for larger button */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 200px; /* Space between the pie chart and the button */
+            font-size: 16px; /* Increased font size */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slight shadow for better visibility */
+        }
+
+        button:hover {
+            background-color: #0b288f;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #002366;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        footer ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        footer ul li {
+            margin: 0 15px;
+        }
+
+        footer ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li class="logo">Admin Dashboard</li>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#">Report Complains</a></li>
+                    <li><a href="#">Emergency Grievances</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="chart-container">
+            <!-- Bar Chart -->
+            <div class="bar-chart-container">
+                <h2>Subtype Count</h2> <!-- Title for Bar Chart -->
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+        
+        <br><br>
+<div class="pie-chart-container" style="display: flex; align-items: center; justify-content: space-between;">
+    <div>
+        <h2>Complaint Distribution</h2> <br>
+        <canvas id="pieChart"></canvas>
+    </div>
+    <button onclick="window.location.href='http://127.0.0.1:8000/heatmap/'" style="margin-left: 100px;">View Heatmap</button> <!-- View Heatmap Button -->
+</div>
+<br><br><br>
+        <footer>
+            <div>
+              
+                <p>&copy; 2024 Smart City Management. Team- KATHA</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Data for Pie Chart
+        const pieChartData = {
+            labels: {{ pie_chart_data.labels|safe }},
+            datasets: [{
+                data: {{ pie_chart_data.data|safe }},
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+            }]
+        };
+
+        // Pie Chart Configuration
+        const pieConfig = {
+            type: 'pie',
+            data: pieChartData,
+        };
+
+        // Render Pie Chart
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        new Chart(pieCtx, pieConfig);
+
+        // Data for Bar Chart
+        const barChartData = {
+            labels: {{ bar_chart_data.labels|safe }},
+            datasets: [{
+                label: 'Count of Subtypes',
+                data: {{ bar_chart_data.data|safe }},
+                backgroundColor: '#36A2EB',
+            }]
+        };
+
+        // Bar Chart Configuration
+        const barConfig = {
+            type: 'bar',
+            data: barChartData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 10  // Adjust interval to 10 or 100 as needed
+                        }
+                    }
+                }
+            }
+        };
+
+        // Render Bar Chart
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        new Chart(barCtx, barConfig);
+    </script>
+
+</body>
+</html>

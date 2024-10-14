@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Issues by Area</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #002366;
+        }
+
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #004aad;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Chart container */
+        .chart-container {
+            margin-top: 40px;
+        }
+    </style>
+
+    <!-- Load Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <li><a href="{% url 'index' %}">Home</a></li>
+
+    <div class="container">
+        <h1>Search Reported Issues by Area</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="area_name">Select an Area name:</label><br>
+            <select name="area_name" id="area_name">
+                <option value="">-- Select an Area --</option>
+                {% for area_name in area_name %}
+                    <option value="{{ area_name }}">{{ area_name }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if issues %}
+        <h2>Reported Issues</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Issue Type</th>
+                    <th>Subtype</th>
+                    <th>Description</th>
+                    <th>Pincode</th>
+                    <th>Submission Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for issue in issues %}
+                <tr>
+                    <td>{{ issue.issue_type }}</td>
+                    <td>{{ issue.issue_subtype }}</td>
+                    <td>{{ issue.issue_description }}</td>
+                    <td>{{ issue.pincode }}</td>
+                    <td>{{ issue.submission_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="chart-container">
+            <h2>Issue Type Distribution</h2>
+            <canvas id="issueTypeChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h2>Issue Subtype Distribution</h2>
+            <canvas id="issueSubtypeChart"></canvas>
+        </div>
+
+        {% else %}
+            {% if request.method == 'POST' %}
+                <p>No issues reported for the selected area.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <script>
+        // Data for issue type chart
+        const issueTypeLabels = {{ issue_type_labels|safe }};
+        const issueTypeCounts = {{ issue_type_counts|safe }};
+        
+        // Data for issue subtype chart
+        const issueSubtypeLabels = {{ issue_subtype_labels|safe }};
+        const issueSubtypeCounts = {{ issue_subtype_counts|safe }};
+        
+        // Issue Type Bar Chart
+        const issueTypeCtx = document.getElementById('issueTypeChart').getContext('2d');
+        const issueTypeChart = new Chart(issueTypeCtx, {
+            type: 'bar',
+            data: {
+                labels: issueTypeLabels,
+                datasets: [{
+                    label: 'Issue Types',
+                    data: issueTypeCounts,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Issue Subtype Bar Chart
+        const issueSubtypeCtx = document.getElementById('issueSubtypeChart').getContext('2d');
+        const issueSubtypeChart = new Chart(issueSubtypeCtx, {
+            type: 'bar',
+            data: {
+                labels: issueSubtypeLabels,
+                datasets: [{
+                    label: 'Issue Subtypes',
+                    data: issueSubtypeCounts,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

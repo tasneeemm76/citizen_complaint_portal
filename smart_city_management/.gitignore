@@ -1,0 +1,9 @@
+# Django specific
+*.pyc
+__pycache__/
+db.sqlite3
+*.log
+
+# Virtual environments
+venv/
+.env

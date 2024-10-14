@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Smart City Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #002366;
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            background-color: #004aad;
+        }
+
+        /* Page Title */
+        .page-title {
+            padding: 100px 0 30px;
+            text-align: center;
+            background-color: #002366;
+            color: #fff;
+        }
+
+        .page-title h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .page-title p {
+            font-size: 1.2rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 50px 0;
+            background-color: #fff;
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #004aad;
+            margin-bottom: 50px;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .service-box {
+            background-color: #f9f9f9;
+            padding: 20px;
+            width: 30%;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-box i {
+            font-size: 3rem;
+            color: #004aad;
+            margin-bottom: 20px;
+        }
+
+        .service-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .service-box p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .service-box a {
+            background-color: #004aad;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .service-box a:hover {
+            background-color: #003080;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #002366;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        footer ul li {
+            margin: 0 15px;
+        }
+
+        footer ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .services-grid {
+                flex-direction: column;
+            }
+
+            .service-box {
+                width: 100%;
+            }
+
+            .page-title h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li class="logo">Smart City Management</li>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-title">
+        <div class="container">
+            <h1>Our City Services</h1>
+            <p>Explore the wide range of services offered to citizens for a smarter, more connected city.</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <h2>Services We Offer</h2>
+            <div class="services-grid">
+                
+                <!-- Service 1 -->
+                <div class="service-box">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>City Maps & Resources</h3>
+                    <p>Access maps of public utilities, green spaces, and essential city resources with ease.</p>
+                    <a href="#maps">Learn More</a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-box">
+                    <i class="fas fa-comments"></i>
+                    <h3>Citizen Feedback</h3>
+                    <p>Report issues like broken streetlights, potholes, or sanitation problems directly through the app.</p>
+                    <a href="#feedback">Submit Feedback</a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-box">
+                    <i class="fas fa-recycle"></i>
+                    <h3>Waste Management</h3>
+                    <p>Stay updated with waste collection schedules and report any waste-related issues to the authorities.</p>
+                    <a href="#waste-management">Learn More</a>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-box">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <h3>Health Services</h3>
+                    <p>Find nearby hospitals, health centers, and other health-related services within the city.</p>
+                    <a href="#health-services">Explore Health Services</a>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-box">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Events & Announcements</h3>
+                    <p>Stay updated with the latest city events, town hall meetings, and public announcements.</p>
+                    <a href="#events">View Events</a>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-box">
+                    <i class="fas fa-bus-alt"></i>
+                    <h3>Public Transport</h3>
+                    <p>Access real-time public transport schedules and updates for buses, trains, and other modes.</p>
+                    <a href="#transport">Plan Your Trip</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+            <p>&copy; 2024 Smart City Management. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report an Emergency - Smart City Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff3f3;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
+            padding-top: 80px;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #b22222;
+            color: #fff;
+            padding: 2px 0;
+            position: fixed;
+            width: 100%;
+            height: 10%;
+            top: 0;
+            z-index: 999;
+        }
+
+        nav ul {
+            padding-left: 5%;
+            padding-right: 5%;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            background-color: #a00000;
+        }
+
+      /* Emergency buttons */
+.emergency-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0; /* Add more spacing */
+}
+
+.emergency-button {
+    background-color: #ff0000; /* Bright red color */
+    color: #fff;
+    padding: 30px 60px; /* Increase padding to make the buttons bigger */
+    margin: 0 20px; /* More space between buttons */
+    border: none;
+    border-radius: 10px; /* Slightly rounder corners */
+    cursor: pointer;
+    font-size: 24px; /* Larger text */
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.emergency-button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+    transform: scale(1.1); /* Slightly enlarges the button on hover */
+}
+
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            padding: 50px 0 30px;
+            background-color: #630000;
+            color: #fff;
+        }
+
+        .page-title h1 {
+            font-size: 3rem;
+        }
+
+        /* Emergency Problem Categories */
+        .problem-categories {
+            margin-top: 50px;
+        }
+
+        .problem-categories h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #630000;
+            margin-bottom: 30px;
+        }
+
+        .category-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .category-box {
+            background-color: #fff;
+            padding: 20px;
+            width: 30%;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            border-left: 5px solid #630000;
+        }
+
+        .category-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .category-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .category-box select,
+        .category-box textarea,
+        .category-box input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .category-box button {
+            background-color: #630000;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .category-box button:hover {
+            background-color: #630000;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #630000;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        footer ul li {
+            margin: 0 15px;
+        }
+
+        footer ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .category-grid {
+                flex-direction: column;
+            }
+
+            .category-box {
+                width: 100%;
+            }
+
+            .emergency-button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .emergency-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="logo">Smart City Management</li>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li> <a href="{% url 'report_issue' %}">Report Complains</a></li>
+                <li> <a href="{% url 'emergency' %}">Emergency Grievances</a></li>
+                <li><a href="#login">Logout</a></li>
+            </ul>
+        </nav>
+        <div class="container">
+            
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-title">
+        <div class="container">
+            <h1>Report an Emergency</h1>
+            <p>If you are experiencing an urgent issue, please report it immediately. Our team will resolve it within 24 hours.</p>
+        </div>
+    </section>
+
+    <!-- Emergency Buttons -->
+    <div class="container emergency-buttons">
+        <a href="tel:1234567890" class="emergency-button">POLICE</a>
+        <a href="tel:0987654321" class="emergency-button">AMBULANCE</a>
+        <a href="tel:1122334455" class="emergency-button">FIRE DEPARTMENT</a>
+    </div>
+    <!-- Emergency Problem Categories -->
+    <section class="problem-categories">
+        <div class="container">
+            <h2>Emergency Categories</h2>
+            <div class="category-grid">
+
+                <!-- Category 1: Power Outage -->
+                <div class="category-box">
+                    <h3>Power Outage</h3>
+                    <form method="POST" action="/report-emergency/">
+                        {% csrf_token %}
+                        <select name="issue_type" required>
+                            <option value="Power Outage">Power Outage</option>
+                        </select>
+                        <textarea name="issue_description" rows="4" placeholder="Additional details (optional)"></textarea>
+                        <input type="text" name="district" placeholder="District" required>
+                        <input type="text" name="pincode" placeholder="Pincode" required>
+                        <button type="submit">Report Emergency</button>
+                    </form>
+                </div>
+
+                <!-- Category 2: Water Supply Disruption -->
+                <div class="category-box">
+                    <h3>Water Supply Disruption</h3>
+                    <form method="POST" action="/report-emergency/">
+                        {% csrf_token %}
+                        <select name="issue_type" required>
+                            <option value="Water Supply Disruption">Water Supply Disruption</option>
+                        </select>
+                        <textarea name="issue_description" rows="4" placeholder="Additional details (optional)"></textarea>
+                        <input type="text" name="district" placeholder="District" required>
+                        <input type="text" name="pincode" placeholder="Pincode" required>
+                        <button type="submit">Report Emergency</button>
+                    </form>
+                </div>
+
+                <!-- Category 3: Gas Leak -->
+                <div class="category-box">
+                    <h3>Gas Leak</h3>
+                    <form method="POST" action="/report-emergency/">
+                        {% csrf_token %}
+                        <select name="issue_type" required>
+                            <option value="Gas Leak">Gas Leak</option>
+                        </select>
+                        <textarea name="issue_description" rows="4" placeholder="Additional details (optional)"></textarea>
+                        <input type="text" name="district" placeholder="District" required>
+                        <input type="text" name="pincode" placeholder="Pincode" required>
+                        <button type="submit">Report Emergency</button>
+                    </form>
+                </div>
+
+                <!-- Add more categories as needed -->
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+           
+            <p>&copy; 2024 Smart City Management. team -KATHA</p>
+        </div>
+    </footer>
+
+</body>
+</html>
